@@ -1,4 +1,4 @@
-package tao.com.arrayList;
+package tao.com.common;
 
 public class Person {
 	private int age;

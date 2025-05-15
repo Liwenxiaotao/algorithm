@@ -1,7 +1,7 @@
 package tao.com;
 
 import org.junit.Test;
-import tao.com.arrayList.Person;
+import tao.com.common.Person;
 import tao.com.arrayList.ArrayList;
 
 public class ArrayListTest {
