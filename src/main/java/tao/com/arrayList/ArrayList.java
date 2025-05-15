@@ -85,4 +85,31 @@ public class ArrayList<E> {
         builder.append("]");
         return builder.toString();
     }
+
+    // 清除所有元素
+    public void clear() {
+        for (int i = 0; i<elements.length; i++) {
+            elements[i] = null;
+        }
+        size = 0;
+    }
+
+    // 查看元素的索引
+    public int indexOf(E element) {
+        if (element == null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) return i;
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (element.equals(elements[i])) return i;
+            }
+        }
+        return ELEMENT_NOT_FOUND;
+    }
+
+    // 是否包含某个元素
+    public boolean contain(E element) {
+        return indexOf(element) != ELEMENT_NOT_FOUND;
+    }
 }
