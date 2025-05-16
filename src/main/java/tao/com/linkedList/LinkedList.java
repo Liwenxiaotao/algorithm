@@ -3,6 +3,8 @@ package tao.com.linkedList;
 * 双向链表
 * */
 public class LinkedList<E> {
+    private static final int ELEMENT_NOT_FOUND = -1;
+
     private Node<E> first;
     private Node<E> last;
     private int size = 0;
@@ -79,20 +81,51 @@ public class LinkedList<E> {
         }
         size++;
     }
+
     // 删除指定索引的元素
     public E remove(int index) {
+        rangeCheck(index);
         Node<E> node = node(index);
         Node<E> prev = node.prev;
         Node<E> next = node.next;
-        if (prev == null) {
+
+        if (prev == null) { // 删除第一个节点
             first = next;
         } else {
             prev.next = next;
         }
-    }
-    public E remove(int index) {
 
+        if (next == null) {  // 删除最后一个节点
+            last = prev;
+        } else {
+            next.prev = prev;
+        }
+        size --;
+        return node.element;
     }
+    // 获取元素的索引
+    public int indexOf(E element) {
+        if (element == null) {
+            Node<E> node = first;
+            for (int i = 0; i < size; i++) {
+                if (node.element == null) return i;
+                node = node.next;
+            }
+        } else {
+            Node<E> node = first;
+            for(int i = 0; i < size; i++) {
+                if (element.equals(node.element)) return i;
+                node = node.next;
+            }
+        }
+        return ELEMENT_NOT_FOUND;
+    }
+
+    // 是否包含某个元素
+    public boolean contain(E element) {
+        return indexOf(element) != ELEMENT_NOT_FOUND;
+    }
+
     // 获取index位置对应的节点对象
     public Node<E> node(int index) {
         rangeCheck(index);
@@ -128,5 +161,21 @@ public class LinkedList<E> {
         if (index < 0 || index > size) {
             outOfBounds(index);
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("size=").append(size).append(",[");
+        Node<E> node = first;
+        for(int i = 0; i < size; i++) {
+            if (i != 0) {
+                sb.append(", ");
+            }
+            sb.append(node);
+            node = node.next;
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
