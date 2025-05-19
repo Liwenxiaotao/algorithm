@@ -22,6 +22,20 @@ public class SingleCircleLinkedList<E> {
         }
     }
 
+    // 获取元素个数
+    public int size() {
+        return size;
+    }
+
+    // 是否是空
+    public boolean isEmpty() {
+        return size == 0;
+    }
+    // 是否包含某个元素
+    public boolean contain(E element) {
+        return indexOf(element) != ELEMENT_NOT_FOUND;
+    }
+
     // 清空链表
     public void clear() {
         size = 0;
@@ -57,21 +71,42 @@ public class SingleCircleLinkedList<E> {
         size ++;
     }
     // 删除
-    public void remove(int index) {
+    public E remove(int index) {
         rangeCheck(index);
         Node<E> node = first;
         if (index == 0) {
             if (size == 1) {
                 first = null;
             } else {
-                Node<E> last = node(index - 1);
+                Node<E> last = node(size - 1);
                 first = node.next;
                 last.next = first;
 
             }
         } else {
-
+            Node<E> prev = node(index - 1);
+            node = prev.next;
+            prev.next = node.next;
         }
+        size--;
+        return node.element;
+    }
+
+    // 获取某个元素的索引
+    public int indexOf(E element) {
+        Node<E> node = first;
+        if (element == null) {
+            for (int i = 0; i < size; i++) {
+                if (node.element == null) return i;
+                node = node.next;
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (element.equals(node.element)) return i;
+                node = node.next;
+            }
+        }
+        return ELEMENT_NOT_FOUND;
     }
 
     // 根据索引获取节点
