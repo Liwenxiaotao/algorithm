@@ -109,7 +109,7 @@ public class CircleLinkedList<E> {
 
     public E remove(int index) {
         rangeCheck(index);
-        remove(node(index));
+        return remove(node(index));
     }
 
     private E remove(Node<E> node) {
